@@ -1,0 +1,28 @@
+CC=gcc
+PATH      = ${CURDIR}
+INC1      = ${PATH}/src/scheduler
+INC2      = ${PATH}/unity
+INCDIRS   = -I ${INC1} -I ${INC2}
+CFLAGS    = ${INCDIRS}
+
+# top-level rule to compile the whole program.
+all: test_all
+
+test_all: unity.o ical.o test_ical.o
+	$(CC) $(CFLAGS) test_ical.o unity.o ical.o -o test_all
+
+# rule for file "unity.o".
+unity.o: unity/unity.c unity/unity.h
+	$(CC) $(CFLAGS) -c -Wall unity/unity.c
+
+# rule for file "ical.o".
+ical.o: src/scheduler/ical.c src/scheduler/ical.h
+	gcc -c -Wall src/scheduler/ical.c
+
+# rule for file "test_ical.o".
+test_ical.o: tests/test_ical.c
+	gcc -c -I src/scheduler -Wall tests/test_ical.c
+
+# rule for cleaning files generated during compilations.
+clean:
+	rm -f test_ical unity.o ical.o

@@ -1,5 +1,6 @@
 #include "ical.h"
 #include "unity.h"
+#include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
 
@@ -25,7 +26,7 @@ void setUp(void)
     // Set TZ variable to no time zone for testing purposes
     // This allows ical to behave as it would on an embedded
     // system
-    setenv("TZ", "UTC0", 1);
+    // setenv("TZ", "UTC0", 1);
 
     ical_get_defaults(&ical);
     ical_set_time_struct(&t_start, 2016, 10, 24, 8, 0, 0);
